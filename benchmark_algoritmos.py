@@ -35,3 +35,25 @@ class DistribuidorDeCarga:
         if indice == len(self.chaves_ordenadas):
             indice = 0
         return self.anel[self.chaves_ordenadas[indice]]
+
+
+class DistribuidorRoundRobin:
+    def __init__(self):
+        self.servidores = []
+        self.indice_atual = 0
+
+    def adicionar_servidores_em_lote(self, nomes_servidores):
+        self.servidores.extend(nomes_servidores)
+
+    def remover_servidor(self, nome_servidor):
+        if nome_servidor in self.servidores:
+            self.servidores.remove(nome_servidor)
+            if self.indice_atual >= len(self.servidores):
+                self.indice_atual = 0
+
+    def obter_servidor(self, requisicao_id=None):
+        if not self.servidores: return None
+        # Avanço O(1)
+        servidor_alvo = self.servidores[self.indice_atual]
+        self.indice_atual = (self.indice_atual + 1) % len(self.servidores)
+        return servidor_alvo
