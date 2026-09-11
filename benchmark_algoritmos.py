@@ -64,7 +64,7 @@ class DistribuidorRoundRobin:
 if __name__ == "__main__":
     tamanhos_n = [100, 1000, 5000, 10000, 30000, 50000]
     num_reqs = 10000
-    repeticoes = 10
+    repeticoes = 30
     requisicoes = [f"req_{i}" for i in range(num_reqs)]
 
     tempos_hc, tempos_rr = [], []

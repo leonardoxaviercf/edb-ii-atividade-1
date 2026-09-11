@@ -1,16 +1,33 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 def plotar_grafico_tempo():
     df = pd.read_csv('resultados_tempo.csv')
     
-    plt.figure(figsize=(10, 6))
-    plt.plot(df['Tamanho_Cluster_n'], df['Tempo_RoundRobin_ms'], 
-             marker='o', color='#E74C3C', label='Round-Robin O(1)', linewidth=2)
-    plt.plot(df['Tamanho_Cluster_n'], df['Tempo_HashingConsistente_ms'], 
-             marker='s', color='#2980B9', label='Hashing Consistente O(log n)', linewidth=2)
+    n_vals = df['Tamanho_Cluster_n']
+    t_rr = df['Tempo_RoundRobin_ms']
+    t_hc = df['Tempo_HashingConsistente_ms']
+
+    constante_o1 = np.mean(t_rr)
+    teorico_o1 = [constante_o1] * len(n_vals)
+
+    n_first, n_last = n_vals.iloc[0], n_vals.iloc[-1]
+    t_first, t_last = t_hc.iloc[0], t_hc.iloc[-1]
     
-    plt.title('Tempo de Roteamento de 10.000 Requisições (Tempo Médio)')
+    a = (t_last - t_first) / (np.log(n_last) - np.log(n_first))
+    b = t_first - a * np.log(n_first)
+    teorico_ologn = a * np.log(n_vals) + b
+
+    plt.figure(figsize=(10, 6))
+    
+    plt.plot(n_vals, teorico_o1, linestyle='--', color='#922B21', alpha=0.6, label='Curva Teórica O(1)')
+    plt.plot(n_vals, teorico_ologn, linestyle='--', color='#154360', alpha=0.6, label='Curva Teórica O(log n)')
+    
+    plt.plot(n_vals, t_rr, marker='o', color='#E74C3C', label='Empírico (Round-Robin)', linewidth=2)
+    plt.plot(n_vals, t_hc, marker='s', color='#3498DB', label='Empírico (Hashing Consistente)', linewidth=2)
+    
+    plt.title('Tempo de Roteamento de 10.000 Requisições (Teoria vs Prática)')
     plt.xlabel('Tamanho da Entrada (n) - Número de Servidores')
     plt.ylabel('Tempo de Execução (Milissegundos)')
     plt.grid(True, linestyle='--', alpha=0.7)
