@@ -208,4 +208,4 @@ O experimento deste repositório constitui uma **adaptação simplificada desses
 
 ## Relatório Final
 
-Para uma análise detalhada da pesquisa, acesse o [Relatório Final em PDF](./EDB2_ Análise Empírica - Hashing Consistente vs Round-Robin.pdf).
+Para uma análise detalhada da pesquisa, acesse o [Relatório Final em PDF](<./EDB2_ Análise Empírica - Hashing Consistente vs Round-Robin.pdf>)
