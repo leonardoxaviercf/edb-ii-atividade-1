@@ -205,3 +205,7 @@ O trabalho original apresenta os fundamentos do Hashing Consistente e suas propr
 O experimento deste repositório constitui uma **adaptação simplificada desses princípios para um cenário de distribuição de requisições**, permitindo a comparação experimental com o algoritmo Round-Robin.
 
 --- 
+
+## Relatório Final
+
+Para uma análise detalhada da pesquisa, acesse o [Relatório Final em PDF](./EDB2_ Análise Empírica - Hashing Consistente vs Round-Robin.pdf).
